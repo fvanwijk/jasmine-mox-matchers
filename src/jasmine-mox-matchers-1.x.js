@@ -144,7 +144,7 @@ var matchers = {
       }
     });
     this.message = getMessages('Expected element isolated scope {not} to contain {0} but got {1}', values, cleanedScope);
-    return _.matches(values)(cleanedScope);
+    return _.isEqual(_.pick(cleanedScope, _.keys(values)), values);
   }
 };
 

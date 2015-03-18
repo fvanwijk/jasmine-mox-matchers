@@ -150,7 +150,7 @@ var matchers = {
   // function 'then', so, I guess we'll go with that for now.
   toBePromise: function toBePromise() {
     return {
-      compare: function (actual, expected) {
+      compare: function (actual) {
         var pass = actual && _.isFunction(actual.then);
         return {
           pass: pass,
@@ -177,8 +177,10 @@ var matchers = {
           }
         });
 
+        var pass = _.isEqual(_.pick(cleanedScope, _.keys(values)), values);
+
         return {
-          pass: _.matches(expected)(cleanedScope),
+          pass: pass,
           message: format('Expected element isolated scope' + getNot(pass) + ' to contain {0} but got {1}', expected, cleanedScope)
         };
       }
