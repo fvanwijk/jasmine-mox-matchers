@@ -2,7 +2,9 @@ module.exports = function (config) {
   config.set({
     basePath: '',
     frameworks: ['jasmine'],
-    preprocessors: {},
+    preprocessors: {
+      'src/**/*.js': ['coverage']
+    },
 
     files: [
       'bower_components/angular/angular.js',
@@ -10,7 +12,7 @@ module.exports = function (config) {
       'test/spec/matchers-spec.js'
     ],
 
-    reporters: ['progress'],
+    reporters: ['progress', 'coverage'],
     port: 8080,
     runnerPort: 9100,
     colors: true,
@@ -22,6 +24,14 @@ module.exports = function (config) {
 
     browsers: ['PhantomJS'],
     captureTimeout: 5000,
-    singleRun: true
+    singleRun: true,
+    coverageReporter: {
+      dir: 'test/coverage',
+      reporters: [
+        { type: 'lcov' },
+        { type: 'text-summary' },
+        { type: 'json' }
+      ]
+    }
   });
 };

@@ -4,9 +4,26 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    clean: ['dist'],
+    clean: {
+      dist: 'dist',
+      coverage: 'test/coverage'
+    },
     jshint: {
       beforeconcat: ['src/**/*.js']
+    },
+    coverage: {
+      dist: {
+        options: {
+          thresholds: {
+            statements: 10,
+            branches: 10,
+            functions: 10,
+            lines: 10
+          },
+          dir: 'coverage',
+          root: 'test'
+        }
+      }
     },
     concat: {
       dist: {
