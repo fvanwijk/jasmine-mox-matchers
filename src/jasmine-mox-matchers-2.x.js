@@ -16,14 +16,6 @@ function getNot(pass) {
   return pass ? ' not' : '';
 }
 
-function getResult(pass, message) {
-  var args = Array.prototype.slice.call(arguments, 1);
-  return {
-    pass: pass,
-    message: format.apply(this, args)
-  };
-}
-
 /**
  * Format a str, replacing {NUMBER} with the n'th argument
  * and uses jasmine.pp for formatting the arguments
@@ -36,6 +28,20 @@ function format(str) {
     message = message.replace(new RegExp('\\{' + (i - 1) + '\\}', 'g'), jasmine.pp(arguments[i]));
   }
   return message;
+}
+
+/**
+ * Create a matcher result
+ * @param pass
+ * @param message
+ * @returns {{pass: *, message: string}}
+ */
+function getResult(pass) {
+  var args = Array.prototype.slice.call(arguments, 1);
+  return {
+    pass: pass,
+    message: format.apply(this, args)
+  };
 }
 
 /**
@@ -81,11 +87,12 @@ function toResolve() {
       var success = jasmine.createSpy('Promise success callback');
       actual.then(success);
       createScope().$digest();
+      var message = 'Expected promise' + getNot(pass) + ' to have been resolved';
 
       var pass = success.calls.count() > 0;
       return {
         pass: pass,
-        message: 'Expected promise' + getNot(pass) + ' to have been resolved'
+        message: message
       };
     }
   };
@@ -96,7 +103,7 @@ function toResolve() {
  * If expected is a method, it will assert whether the promise object was resolved, and execute the callback
  * with the response object, so that the spec can do its own assertions. Useful for more complex data.
  */
-function toResolveWith() {
+function toResolveWith(expected) {
   return {
     compare: function (actual, expected) {
       var success = jasmine.createSpy('Promise success callback');
@@ -132,7 +139,7 @@ function toReject() {
  * If expected is a method, it will assert whether the promise object was rejected, and execute the callback
  * with the response object, so that the spec can do its own assertions. Useful for more complex data.
  */
-function toRejectWith() {
+function toRejectWith(expected) {
   return {
     compare: function (actual, expected) {
       var failure = jasmine.createSpy('Promise failure callback');
@@ -167,7 +174,7 @@ var matchers = {
   toRejectWith: toRejectWith,
   toHaveBeenRejected: toReject,
   toHaveBeenRejectedWith: toRejectWith,
-  toContainIsolateScope: function() {
+  toContainIsolateScope: function (values) {
     return {
       compare: function (actual, expected) {
         var cleanedScope = {};
@@ -188,6 +195,8 @@ var matchers = {
   }
 };
 
+
 beforeEach(function () {
   jasmine.addMatchers(matchers);
 });
+

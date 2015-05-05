@@ -13,21 +13,6 @@ function createScope() {
   return currentSpec.$injector.get('$rootScope').$new();
 }
 
-/**
- * Return function returns message and inverted (.not) message
- * @param {...string} msg message with {not} to be replaced by nothing or 'not' and {#} to be replaced by additional parameters
- * @returns {Function}
- */
-function getMessages(msg) {
-  var args = arguments;
-  var formattedMsg = format.apply(this, args);
-  return function () {
-    return [
-      formattedMsg.replace(' {not}', ''),
-      formattedMsg.replace('{not}', 'not')
-    ];
-  };
-}
 
 /**
  * Format a str, replacing {NUMBER} with the n'th argument
@@ -41,6 +26,21 @@ function format(str) {
     message = message.replace(new RegExp('\\{' + (i - 1) + '\\}', 'g'), jasmine.pp(arguments[i]));
   }
   return message;
+}
+/**
+ * Return function returns message and inverted (.not) message
+ * @param {...string} msg message with {not} to be replaced by nothing or 'not' and {#} to be replaced by additional parameters
+ * @returns {Function}
+ */
+function getMessages() {
+  var args = arguments;
+  var formattedMsg = format.apply(this, args);
+  return function () {
+    return [
+      formattedMsg.replace(' {not}', ''),
+      formattedMsg.replace('{not}', 'not')
+    ];
+  };
 }
 
 /**
@@ -73,7 +73,7 @@ function createPromiseWith(spy, expected, verb) {
  */
 function toResolve() {
   var success = jasmine.createSpy('Promise success callback');
-  this.actual.then(success, noop);
+  this.actual.then(success, angular.noop);
   createScope().$digest();
 
   this.message = getMessages('Expected promise {not} to have been resolved');
