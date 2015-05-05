@@ -4,12 +4,68 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+    paths: {
+      src: 'src',
+      test: 'test',
+      dist: 'dist'
+    },
     clean: {
       dist: 'dist',
       coverage: 'test/coverage'
     },
     jshint: {
-      beforeconcat: ['src/**/*.js']
+      options: {
+        jshintrc: '.jshintrc',
+        reporter: require('jshint-stylish')
+      },
+      all: {
+        src: [
+          'Gruntfile.js',
+          '<%= paths.src %>/{,*/}*.js'
+        ]
+      },
+      test: {
+        options: {
+          jshintrc: 'test/.jshintrc'
+        },
+        src: ['<%= paths.test %>/spec/{,*/}*.js']
+      }
+    },
+    jscs: {
+      options: {
+        config: './.jscsrc'
+      },
+      all: {
+        files: {
+          src: ['<%= paths.src %>/src/{,**/}*.js']
+        }
+      },
+      test: {
+        src: ['test/{,**/}*.js']
+      }
+    },
+
+    lintspaces: {
+      options: {
+        newline: true,
+        newlineMaximum: 2,
+        trailingspaces: true
+      },
+      all: {
+        src: [
+          'Gruntfile.js',
+          '<%= paths.src %>/{,**/}*.js'
+        ]
+      },
+      test: {
+        src: [
+          'test/{,**/}*.js'
+        ]
+      }
+    },
+
+    jsonlint: {
+      src: '<%= paths.test %>/mock/**/*.json'
     },
     coverage: {
       dist: {
@@ -28,7 +84,7 @@ module.exports = function(grunt) {
     concat: {
       dist: {
         src: [
-          'src/**/*.js'
+          '<%= paths.src %>/**/*.js'
         ],
         dest: 'dist/<%= pkg.name %>.js'
       }

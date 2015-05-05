@@ -1,0 +1,14 @@
+{
+  "extends": "../.jshintrc",
+  "regexp": true,
+  "jasmine": true,
+  "globals": {
+    "angular": false,
+    "browser": false,
+    "createController": false,
+    "createScope": false,
+    "getMockData": false,
+    "inject": false,
+    "mox": false
+  }
+}
