@@ -158,10 +158,10 @@ var matchers = {
   toBePromise: function toBePromise() {
     return {
       compare: function (actual) {
-        var pass = actual && _.isFunction(actual.then);
+        var pass = !!actual && angular.isFunction(actual.then);
         return {
           pass: pass,
-          message: format('Expected object {0}' + getNot(pass) + ' to be a promise', actual)
+          message: format('Expected {0}' + getNot(pass) + ' to be a promise', actual)
         };
       }
     };
