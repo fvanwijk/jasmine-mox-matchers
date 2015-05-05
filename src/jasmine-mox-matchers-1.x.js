@@ -13,7 +13,6 @@ function createScope() {
   return currentSpec.$injector.get('$rootScope').$new();
 }
 
-
 /**
  * Format a str, replacing {NUMBER} with the n'th argument
  * and uses jasmine.pp for formatting the arguments
@@ -33,8 +32,7 @@ function format(str) {
  * @returns {Function}
  */
 function getMessages() {
-  var args = arguments;
-  var formattedMsg = format.apply(this, args);
+  var formattedMsg = format.apply(this, arguments);
   return function () {
     return [
       formattedMsg.replace(' {not}', ''),

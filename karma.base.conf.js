@@ -7,6 +7,7 @@ module.exports = function (config) {
     },
 
     files: [
+      'bower_components/lodash/lodash.js',
       'bower_components/angular/angular.js',
       'bower_components/angular-mocks/angular-mocks.js',
       'test/spec/matchers-spec.js'

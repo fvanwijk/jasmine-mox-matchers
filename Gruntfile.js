@@ -1,5 +1,4 @@
-module.exports = function(grunt) {
-
+module.exports = function (grunt) {
   require('load-grunt-tasks')(grunt);
 
   grunt.initConfig({
@@ -21,7 +20,7 @@ module.exports = function(grunt) {
       all: {
         src: [
           'Gruntfile.js',
-          '<%= paths.src %>/{,*/}*.js'
+          '<%= paths.src %>/**/*.js'
         ]
       },
       test: {
@@ -37,18 +36,18 @@ module.exports = function(grunt) {
       },
       all: {
         files: {
-          src: ['<%= paths.src %>/src/{,**/}*.js']
+          src: ['<%= paths.src %>/**/*.js']
         }
       },
       test: {
-        src: ['test/{,**/}*.js']
+        src: ['test/<%= paths.src %>/**/*.js']
       }
     },
 
     lintspaces: {
       options: {
         newline: true,
-        newlineMaximum: 2,
+        newlineMaximum: 1,
         trailingspaces: true
       },
       all: {
@@ -71,13 +70,13 @@ module.exports = function(grunt) {
       dist: {
         options: {
           thresholds: {
-            statements: 10,
-            branches: 10,
-            functions: 10,
-            lines: 10
+            statements: 95,
+            branches: 95,
+            functions: 95,
+            lines: 95
           },
           dir: 'coverage',
-          root: 'test'
+          root: '<%= paths.test %>'
         }
       }
     },
@@ -108,15 +107,14 @@ module.exports = function(grunt) {
     },
     watch: {
       karma: {
-        files: ['src/**/*.js', 'test/spec/**/*.js'],
-        tasks: ['karma:unit:run']
+        files: ['Gruntfile.js', '<%= paths.src %>/**/*.js', '<%= paths.test %>/spec/**/*.js'],
+        tasks: ['test']
       }
     }
   });
 
-  grunt.registerTask('build', ['jshint', 'test', 'clean', 'uglify']);
-  grunt.registerTask('test', ['karma:2']);
-  grunt.registerTask('test:watch', ['karma:unit:start','watch']);
+  grunt.registerTask('build', ['test', 'clean', 'uglify']);
+  grunt.registerTask('test', ['jscs', 'jshint', 'lintspaces', 'jsonlint', 'karma:2', 'coverage']);
   grunt.registerTask('default', ['test']);
 
 };

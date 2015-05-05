@@ -9,6 +9,7 @@
     "createScope": false,
     "getMockData": false,
     "inject": false,
+    "jasmineMoxMatchers": false,
     "mox": false
   }
 }

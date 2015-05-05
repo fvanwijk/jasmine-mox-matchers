@@ -5,6 +5,7 @@ module.exports = function () {
     //testFramework: 'jasmine@1.3.1',
 
     files: [
+      n('bower_components/lodash/lodash.js'),
       n('bower_components/angular/angular.js'),
       n('bower_components/angular-mocks/angular-mocks.js'),
       'src/jasmine-mox-matchers-2.x.js'
