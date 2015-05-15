@@ -8,6 +8,7 @@ module.exports = function () {
       n('bower_components/lodash/lodash.js'),
       n('bower_components/angular/angular.js'),
       n('bower_components/angular-mocks/angular-mocks.js'),
+      n('bower_components/testception/src/testception.js'),
       'src/jasmine-mox-matchers-2.x.js'
     ],
     tests: [
