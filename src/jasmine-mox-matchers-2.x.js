@@ -85,7 +85,7 @@ var jasmineMoxMatchers;
    */
   function toResolve() {
     return {
-      compare: function (actual) {
+      compare: function compareToResolve(actual) {
         var success = jasmine.createSpy('Promise success callback');
         actual.then(success);
         createScope().$digest();
@@ -104,7 +104,7 @@ var jasmineMoxMatchers;
    */
   function toResolveWith() {
     return {
-      compare: function (actual, expected) {
+      compare: function compareToResolveWith(actual, expected) {
         var success = jasmine.createSpy('Promise success callback');
 
         actual.then(success);
@@ -118,7 +118,7 @@ var jasmineMoxMatchers;
    */
   function toReject() {
     return {
-      compare: function (actual) {
+      compare: function compareToReject(actual) {
         var failure = jasmine.createSpy('Promise failure callback');
         actual.catch(failure);
         createScope().$digest();
@@ -137,7 +137,7 @@ var jasmineMoxMatchers;
    */
   function toRejectWith() {
     return {
-      compare: function (actual, expected) {
+      compare: function compareToRejectWith(actual, expected) {
         var failure = jasmine.createSpy('Promise failure callback');
 
         actual.catch(failure);
@@ -153,7 +153,7 @@ var jasmineMoxMatchers;
     // function 'then', so, I guess we'll go with that for now.
     toBePromise: function toBePromise() {
       return {
-        compare: function (actual) {
+        compare: function compareToBePromise(actual) {
           var pass = !!actual && angular.isFunction(actual.then);
           return {
             pass: pass,
@@ -170,7 +170,7 @@ var jasmineMoxMatchers;
     toRejectWith: toRejectWith,
     toHaveBeenRejected: toReject,
     toHaveBeenRejectedWith: toRejectWith,
-    toContainIsolateScope: function () {
+    toContainIsolateScope: function toContainIsolateScope() {
       return {
         compare: function (actual, expected) {
           var cleanedScope, pass, messagePostfix;
