@@ -30,17 +30,18 @@ SomeService.getData() // Returns a promise that resolves to 'data'
   });
 ```
 
-With the promise matchers, this test will do everything.
+With the promise matchers, this is all you need to do:
 
 ```javascript
-  var promise = SomeService.getData();
-  $scope.$digest();
-  expect(promise).toResolveWith('data');
+  expect(SomeService.getData()).toResolveWith('data');
 ```
 
-Apart from the 3 lines of boilerplate code, this way of testing does not guarantee that your promise will resolve! If the promise does not resolve, the `expect` will not be called and the test passes.
+Apart from the 3 lines of boilerplate code, the usual way of testing does not guarantee that your promise will resolve!
+If the promise does not resolve or rejects, the `expect` will not be called and the test passes because the `expect` statement is not called.
 
 *Note that a lot of promise matchers on Github still work this way!*
+
+In short, these promise matchers are really clean to use and have a correctly implemented 'failing' case.
 
 ## Directive matcher
 
@@ -83,6 +84,14 @@ Verifies that a Promise is resolved with the specified argument.
 expect(promise).toBeResolvedWith('something');
 ```
 
+If you pass a function, you can use that as callback to get the resolved value and some some further assertions on it.
+
+```javascript
+expect(promise).toBeResolvedWith(function (data) { // Checks only if the promise resolves
+  expect(data.length).toBe(2); // Do further assertions
+});
+```
+
 ## toReject() / toHaveBeenRejected()
 Asserts that a Promise is rejected before the end of the test.
 
@@ -96,6 +105,14 @@ Asserts that a Promise is rejected with the specified argument.
 
 ```javascript
 expect(promise).toBeRejectedWith('something');
+```
+
+If you pass a function, you can use that as callback to get the resolved value and some some further assertions on it.
+
+```javascript
+expect(promise).toBeRejectedWith(function (data) { // Checks only if the promise rejects
+  expect(data.message).toBe('Error fetching data'); // Do further assertions
+});
 ```
   
 ## toContainIsolateScope()
