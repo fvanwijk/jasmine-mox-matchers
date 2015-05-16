@@ -11,6 +11,7 @@ module.exports = function (config) {
       'bower_components/angular/angular.js',
       'bower_components/angular-mocks/angular-mocks.js',
       'bower_components/testception/src/testception.js',
+      'src/jasmine-mox-matchers.js',
       'test/spec/matchers-spec.js'
     ],
 

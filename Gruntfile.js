@@ -94,15 +94,12 @@ module.exports = function (grunt) {
         cwd: 'src/',
         src: '*.js', // dist when using concat
         dest: 'dist',
-        ext: '.x.min.js'
+        ext: '.min.js'
       }
     },
     karma: {
-      1: {
-        configFile: 'karma.1.x.conf.js'
-      },
-      2: {
-        configFile: 'karma.2.x.conf.js'
+      dist: {
+        configFile: 'karma.conf.js'
       }
     },
     watch: {
@@ -114,7 +111,7 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('build', ['test', 'clean', 'uglify']);
-  grunt.registerTask('test', ['jscs', 'jshint', 'lintspaces', 'jsonlint', 'karma:2', 'coverage']);
-  grunt.registerTask('default', ['test']);
+  grunt.registerTask('test', ['jscs', 'jshint', 'lintspaces', 'jsonlint', 'karma', 'coverage']);
+  grunt.registerTask('default', ['build']);
 
 };

@@ -19,8 +19,11 @@
   "smarttabs": true,
   "jasmine": true,
   "globals": {
-    "angular": false,
     "_": false,
+    "angular": false,
+    "expectMatcher": false,
+    "jasmineV1MoxMatchers": true,
+    "jasmineV2MoxMatchers": true,
     "module": false
   }
 }
