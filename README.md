@@ -15,7 +15,7 @@ They were made for the Resource testing DSL in [Mox](http://www.github.com/fvanw
 
 `bower install jasmine-mox-matchers --save-dev`
 
-Include dist/jasmine-mox-matchers.min.js file in the files list of karma.conf, depending on the version of Jasmine you are using.
+Include `src/jasmine-mox-matchers.js` or `dist/jasmine-mox-matchers.min.js` file in the files list of your test runner config files.
 
 # Documentation
 
@@ -74,20 +74,20 @@ expect(promise).toBePromise();
 Asserts that a Promise is resolved.
 
 ```javascript
-expect(promise).toBeResolved();
+expect(promise).toResolve();
 ```
 
 ## toResolveWith() / toHaveBeenResolved()
 Verifies that a Promise is resolved with the specified argument.
 
 ```javascript
-expect(promise).toBeResolvedWith('something');
+expect(promise).toResolveWith('something');
 ```
 
 If you pass a function, you can use that as callback to get the resolved value and some some further assertions on it.
 
 ```javascript
-expect(promise).toBeResolvedWith(function (data) { // Checks only if the promise resolves
+expect(promise).toResolveWith(function (data) { // Checks only if the promise resolves
   expect(data.length).toBe(2); // Do further assertions
 });
 ```
@@ -96,7 +96,7 @@ expect(promise).toBeResolvedWith(function (data) { // Checks only if the promise
 Asserts that a Promise is rejected before the end of the test.
 
 ```javascript
-expect(promise).toBeRejected();
+expect(promise).toReject();
 ```
 
 ## toRejectWith() / toHaveBeenRejectedWith()
@@ -104,13 +104,13 @@ expect(promise).toBeRejected();
 Asserts that a Promise is rejected with the specified argument.
 
 ```javascript
-expect(promise).toBeRejectedWith('something');
+expect(promise).toRejectWith('something');
 ```
 
 If you pass a function, you can use that as callback to get the resolved value and some some further assertions on it.
 
 ```javascript
-expect(promise).toBeRejectedWith(function (data) { // Checks only if the promise rejects
+expect(promise).toRejectWith(function (data) { // Checks only if the promise rejects
   expect(data.message).toBe('Error fetching data'); // Do further assertions
 });
 ```
