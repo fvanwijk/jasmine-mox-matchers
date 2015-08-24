@@ -240,7 +240,7 @@ beforeEach(function () {
     var jasmine1Matchers = {};
     angular.forEach(matchers, function (matcher, name) {
       var newMatcher = function matcherFactory(compareFn) {
-        return function convertedJasmineMatcher(expected) {
+        return function convertedJasmineMatcher() {
           var args = [this.actual].concat(Array.prototype.slice.call(arguments, 0));
           var result = compareFn.apply(this, args);
           this.message = convertMessage(messages[name]);
