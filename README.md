@@ -5,10 +5,11 @@ Jasmine Mox Matchers
 [![Test Coverage](https://codeclimate.com/github/fvanwijk/jasmine-mox-matchers/badges/coverage.svg)](https://codeclimate.com/github/fvanwijk/jasmine-mox-matchers)
 [![Code Climate](https://codeclimate.com/github/fvanwijk/jasmine-mox-matchers/badges/gpa.svg)](https://codeclimate.com/github/fvanwijk/jasmine-mox-matchers)
 
-This package include some matchers for testing Angular promises without having to `$digest` manually.
+This package include some matchers for testing Angular promises without having to `$digest` manually and two other useful matchers.
 They were made for the Resource testing DSL in [Mox](http://www.github.com/fvanwijk/mox), but also very useful when included separately.
 
 * Promise matchers
+* Matcher for testing query parameters
 * Matcher for directive isolate scope testing
 
 # Installing
@@ -42,6 +43,22 @@ If the promise does not resolve or rejects, the `expect` will not be called and 
 *Note that a lot of promise matchers on Github still work this way!*
 
 In short, these promise matchers are really clean to use and have a correctly implemented 'failing' case.
+
+## Query parameter matcher
+
+Test if query parameters exist in a certain URL.
+
+```javascript
+expect('path?param1=param1').toHaveQueryParams({ param1: 'param1' });
+```
+
+Strict matching is also supported by passing `true` as second argument.
+
+```javascript
+var path = 'path?param1=param1&param2=param2';
+expect(path).toHaveQueryParams({ param1: 'param1' }, true); // This fails
+expect(path).toHaveQueryParams({ param1: 'param1', param2: 'param2' }, true); // This passes
+```
 
 ## Directive matcher
 
