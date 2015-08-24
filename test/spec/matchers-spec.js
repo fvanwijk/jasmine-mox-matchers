@@ -214,6 +214,42 @@ describe('the promise matchers', function () {
 
       });
 
+      describe('toHaveQueryParams', function () {
+        useMatcher('toHaveQueryParams', version);
+
+        it('should pass when the actual string has the expected query params', function () {
+          this.test
+            .withActual('path?param1=param1')
+            .andExpected({ param1: 'param1' })
+            .toPass()
+            .withMessage('Expected URI not to have params Object({ param1: \'param1\' }), actual params were Object({ param1: \'param1\' }) in \'path?param1=param1\'');
+        });
+
+        it('should fail when the actual string does not have the expected query params', function () {
+          this.test
+            .withActual('path?param1=param1')
+            .andExpected({ param2: 'param2' })
+            .toFail()
+            .withMessage('Expected URI to have params Object({ param2: \'param2\' }), actual params were Object({ param1: \'param1\' }) in \'path?param1=param1\'');
+        });
+
+        it('should pass when the actual string does strictly have the expected query params', function () {
+          this.test
+            .withActual('path?param1=param1&param2=param2')
+            .andExpected({ param1: 'param1', param2: 'param2' }, true)
+            .toPass()
+            .withMessage('Expected URI not to have params Object({ param1: \'param1\', param2: \'param2\' }), actual params were Object({ param1: \'param1\', param2: \'param2\' }) in \'path?param1=param1&param2=param2\'');
+        });
+
+        it('should fail when the actual string does strictly not have the expected query params', function () {
+          this.test
+            .withActual('path?param1=param1&param2=param2')
+            .andExpected({ param1: 'param1' }, true)
+            .toFail()
+            .withMessage('Expected URI to have params Object({ param1: \'param1\' }), actual params were Object({ param1: \'param1\', param2: \'param2\' }) in \'path?param1=param1&param2=param2\'');
+        });
+      });
+
       describe('toContainIsolateScope', function () {
         useMatcher('toContainIsolateScope', version);
 

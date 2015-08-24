@@ -189,6 +189,29 @@ beforeEach(function () {
     };
   }
 
+  function toHaveQueryParams() {
+    function queryStringFilter(str) {
+      var params = {};
+      return str
+        .replace(/(^\?)/, '')
+        .split('&')
+        .map(function (n) {
+          n = n.split('=');
+          params[n[0]] = n[1];
+          return params;
+        })[0];
+    }
+
+    return {
+      compare: function (actual, expected, strict) {
+        var actualParams = queryStringFilter(actual.substring(actual.indexOf('?')));
+        var pass = _.matches(expected)(actualParams) && (!strict || _.matches(actualParams)(expected));
+        return getResult('toHaveQueryParams', pass, 'Expected URI {not} to have params {0}, actual params were {1} in {2}', expected, actualParams, actual);
+      }
+    };
+
+  }
+
   function toContainIsolateScope() {
     return {
       compare: function (actual, expected) {
@@ -239,6 +262,7 @@ beforeEach(function () {
     toRejectWith: toRejectWith,
     toHaveBeenRejected: toReject,
     toHaveBeenRejectedWith: toRejectWith,
+    toHaveQueryParams: toHaveQueryParams,
     toContainIsolateScope: toContainIsolateScope
   };
 
