@@ -1,6 +1,6 @@
 {
   "name": "jasmine-mox-matchers",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "main": "dist/jasmine-mox-matchers.js",
   "license": "MIT",
   "ignore": [
