@@ -4,6 +4,7 @@ Jasmine Mox Matchers
 [![Build Status](https://travis-ci.org/fvanwijk/jasmine-mox-matchers.svg?branch=master)](https://travis-ci.org/fvanwijk/jasmine-mox-matchers)
 [![Test Coverage](https://codeclimate.com/github/fvanwijk/jasmine-mox-matchers/badges/coverage.svg)](https://codeclimate.com/github/fvanwijk/jasmine-mox-matchers)
 [![Code Climate](https://codeclimate.com/github/fvanwijk/jasmine-mox-matchers/badges/gpa.svg)](https://codeclimate.com/github/fvanwijk/jasmine-mox-matchers)
+[![devDependency Status](https://david-dm.org/fvanwijk/jasmine-mox-matchers/dev-status.svg)](https://david-dm.org/fvanwijk/jasmine-mox-matchers#info=devDependencies)
 
 This package include some matchers for testing Angular promises without having to `$digest` manually and two other useful matchers.
 They were made for the Resource testing DSL in [Mox](http://www.github.com/fvanwijk/mox), but also very useful when included separately.
