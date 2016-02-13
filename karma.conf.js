@@ -1,3 +1,5 @@
+var karmaFiles = require('test-runner-config').getKarmaFiles(require('./test/testFiles'));
+
 module.exports = function (config) {
   config.set({
     basePath: '',
@@ -5,27 +7,15 @@ module.exports = function (config) {
     preprocessors: {
       'src/**/*.js': ['coverage']
     },
-
-    files: [
-      'bower_components/lodash/lodash.js',
-      'bower_components/angular/angular.js',
-      'bower_components/angular-mocks/angular-mocks.js',
-      'bower_components/testception/src/testception.js',
-      'src/jasmine-mox-matchers.js',
-      'test/spec/matchers-spec.js'
-    ],
-
+    files: karmaFiles.files,
+    exclude: karmaFiles.exclude,
     reporters: ['progress', 'coverage'],
     port: 8080,
     runnerPort: 9100,
     colors: true,
-
-    // possible values: LOG_DISABLE || LOG_ERROR || LOG_WARN || LOG_INFO || LOG_DEBUG
     logLevel: config.LOG_INFO,
-
     autoWatch: false,
-
-    browsers: ['PhantomJS'],
+    browsers: ['PhantomJS2'],
     captureTimeout: 5000,
     singleRun: true,
     coverageReporter: {

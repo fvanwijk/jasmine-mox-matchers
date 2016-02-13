@@ -1,18 +1,15 @@
-module.exports = function () {
-  function n(file) { return { pattern: file, instrument: false }; }
+var wallabyFiles = require('test-runner-config').getWallabyFiles(require('./test/testFiles'));
 
+module.exports = function () {
   return {
     //testFramework: 'jasmine@1.3.1',
-
-    files: [
-      n('bower_components/lodash/lodash.js'),
-      n('bower_components/angular/angular.js'),
-      n('bower_components/angular-mocks/angular-mocks.js'),
-      'bower_components/testception/src/testception.js',
-      'src/jasmine-mox-matchers.js'
-    ],
-    tests: [
-      'test/spec/matchers-spec.js'
-    ]
+    files: wallabyFiles.files,
+    tests: wallabyFiles.tests,
+    env: {
+      runner: require('phantomjs2-ext').path,
+      params: {
+        runner: '--web-security=false'
+      }
+    }
   };
 };

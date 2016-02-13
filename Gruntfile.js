@@ -1,16 +1,17 @@
 module.exports = function (grunt) {
   require('load-grunt-tasks')(grunt);
 
+  var paths = {
+    src: 'src',
+    test: 'test',
+    dist: 'dist'
+  };
+
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    paths: {
-      src: 'src',
-      test: 'test',
-      dist: 'dist'
-    },
     clean: {
-      dist: 'dist',
-      coverage: 'test/coverage'
+      dist: paths.dist,
+      coverage: paths.test + '/coverage'
     },
     jshint: {
       options: {
@@ -18,16 +19,16 @@ module.exports = function (grunt) {
         reporter: require('jshint-stylish')
       },
       all: {
-        src: [
-          'Gruntfile.js',
-          '<%= paths.src %>/**/*.js'
-        ]
+        src: paths.src + '/**/*.js'
       },
       test: {
         options: {
           jshintrc: 'test/.jshintrc'
         },
-        src: ['<%= paths.test %>/spec/{,*/}*.js']
+        src: [paths.test + '/spec/**/*.js']
+      },
+      config: {
+        src: ['*.js', paths.test + '/{,!(spec)}/*.js']
       }
     },
     jscs: {
@@ -36,11 +37,14 @@ module.exports = function (grunt) {
       },
       all: {
         files: {
-          src: ['<%= paths.src %>/**/*.js']
+          src: [paths.src + '/**/*.js']
         }
       },
       test: {
-        src: ['test/<%= paths.src %>/**/*.js']
+        src: [paths.test + '/spec/**/*.js']
+      },
+      config: {
+        src: ['*.js', paths.test + '/{,!(spec)}/*.js']
       }
     },
 
@@ -54,16 +58,16 @@ module.exports = function (grunt) {
             lines: 97
           },
           dir: 'coverage',
-          root: '<%= paths.test %>'
+          root: paths.test + ''
         }
       }
     },
     concat: {
       dist: {
         src: [
-          '<%= paths.src %>/**/*.js'
+          paths.src + '/**/*.js'
         ],
-        dest: 'dist/<%= pkg.name %>.js'
+        dest: paths.dist + '/<%= pkg.name %>.js'
       }
     },
     uglify: {
@@ -71,27 +75,13 @@ module.exports = function (grunt) {
         expand: true,
         cwd: 'src/',
         src: '*.js', // dist when using concat
-        dest: 'dist',
+        dest: paths.dist,
         ext: '.min.js'
       }
     },
     karma: {
       dist: {
         configFile: 'karma.conf.js'
-      }
-    },
-    watch: {
-      karma: {
-        files: ['Gruntfile.js', '<%= paths.src %>/**/*.js', '<%= paths.test %>/spec/**/*.js'],
-        tasks: ['test']
-      }
-    },
-    bump: {
-      options: {
-        files: ['package.json', 'bower.json'],
-        commitFiles: ['package.json', 'bower.json'],
-        commitMessage: 'Bump version to v%VERSION%',
-        push: false
       }
     }
   });
