@@ -29,7 +29,7 @@
     "karma-phantomjs2-launcher": "0.5.0",
     "load-grunt-tasks": "3.4.0",
     "test-runner-config": "0.5.0",
-    "testception": "0.2.0"
+    "testception": "0.3.0"
   },
   "scripts": {
     "test": "grunt test",
