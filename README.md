@@ -145,6 +145,5 @@ expect(element).toContainIsolateScope({ bindingKey: 'value' });
 # Development
 
 * `npm install`
-* `bower install`
 
 Run `grunt -h` to see available tasks.
