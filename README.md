@@ -16,7 +16,7 @@ They were made for the Resource testing DSL in [Mox](http://www.github.com/fvanw
 
 # Installing
 
-`bower install jasmine-mox-matchers --save-dev`
+`bower install jasmine-mox-matchers --save-dev` or `npm install jasmine-mox-matchers`.
 
 Include `src/jasmine-mox-matchers.js` or `dist/jasmine-mox-matchers.min.js` file in the files list of your test runner config files.
 
