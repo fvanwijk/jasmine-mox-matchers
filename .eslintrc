@@ -4,13 +4,8 @@
         "node": true,
         "browser": true
     },
-    "extends": "airbnb-base",
-    "plugins": [
-        "eslint-plugin-import"
-    ],
     "rules": {
         "comma-dangle": [2, "never"],
-        "func-names": [2, "never"],
         "no-underscore-dangle": [2, { "allow": ["__moduleBundler"] }]
     }
 }

@@ -203,7 +203,7 @@ beforeEach(function () {
     }
 
     return {
-      compare: function (actual, expected, strict) {
+      compare: function compareToHaveQueryParams(actual, expected, strict) {
         var actualParams = queryStringFilter(actual.substring(actual.indexOf('?')));
         var pass = _.matches(expected)(actualParams) && (!strict || _.matches(actualParams)(expected));
         return getResult('toHaveQueryParams', pass, 'Expected URI {not} to have params {0}, actual params were {1} in {2}', expected, actualParams, actual);
@@ -214,11 +214,11 @@ beforeEach(function () {
 
   function toContainIsolateScope() {
     return {
-      compare: function (actual, expected) {
+      compare: function compareToContainIsolateScope(actual, expected) {
         var cleanedScope, pass, messagePostfix;
         if (actual.isolateScope()) {
           cleanedScope = {};
-          angular.forEach(actual.isolateScope(), function (val, key) {
+          angular.forEach(actual.isolateScope(), function cleanScope(val, key) {
             if (key !== 'this' && key.charAt(0) !== '$') {
               cleanedScope[key] = val;
             }
@@ -238,7 +238,7 @@ beforeEach(function () {
 
   function convertMatchers(matchers) {
     var jasmine1Matchers = {};
-    angular.forEach(matchers, function (matcher, name) {
+    angular.forEach(matchers, function convertMatcher(matcher, name) {
       var newMatcher = function matcherFactory(compareFn) {
         return function convertedJasmineMatcher() {
           var args = [this.actual].concat(Array.prototype.slice.call(arguments, 0));
