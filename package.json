@@ -32,7 +32,7 @@
     "testception": "1.0.1"
   },
   "scripts": {
-    "test": "grunt test",
+    "qa": "grunt test",
     "prepublish": "grunt"
   },
   "license": "MIT"
