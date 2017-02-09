@@ -8,32 +8,32 @@
     "url": "git://github.com/fvanwijk/jasmine-mox-matchers.git"
   },
   "dependencies": {
-    "lodash": "4.3.0"
+    "angular": "1.6.2",
+    "lodash": "4.17.4"
   },
   "devDependencies": {
-    "angular": "1.5.0",
-    "angular-mocks": "1.5.0",
-    "grunt": "0.4.5",
-    "grunt-contrib-clean": "0.7.0",
-    "grunt-contrib-concat": "0.5.1",
-    "grunt-contrib-jshint": "0.12.0",
-    "grunt-contrib-uglify": "0.11.1",
-    "grunt-istanbul-coverage": "0.1.3",
-    "grunt-jscs": "2.7.0",
-    "grunt-karma": "0.12.1",
-    "jasmine-core": "2.4.1",
-    "jshint-stylish": "2.1.0",
-    "karma": "0.13.21",
-    "karma-coverage": "0.5.3",
-    "karma-jasmine": "0.3.7",
-    "karma-phantomjs2-launcher": "0.5.0",
-    "load-grunt-tasks": "3.4.0",
+    "angular-mocks": "1.6.2",
+    "del-cli": "0.2.1",
+    "eslint": "3.15.0",
+    "eslint-config-airbnb-base": "11.1.0",
+    "eslint-plugin-import": "2.2.0",
+    "jasmine-core": "2.5.2",
+    "karma": "1.4.1",
+    "karma-coverage": "1.1.1",
+    "karma-jasmine": "1.1.0",
+    "karma-phantomjs-launcher": "1.0.2",
+    "phantomjs-prebuilt": "2.1.14",
     "test-runner-config": "0.5.0",
-    "testception": "0.3.0"
+    "testception": "1.0.1"
   },
   "scripts": {
-    "test": "grunt test",
-    "prepublish": "grunt"
+    "build": "mkdir dist && uglifyjs src/jasmine-mox-matchers.js -o ./dist/jasmine-mox-matchers.min.js",
+    "clean": "del dist coverage",
+    "lint:js": "eslint . --color",
+    "qa": "npm run lint:js && npm run test:unit",
+    "prepublish": "npm run clean && npm run qa && npm run build",
+    "preversion": "npm run qa",
+    "test:unit": "karma start"
   },
   "license": "MIT"
 }

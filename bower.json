@@ -4,17 +4,13 @@
   "main": "dist/jasmine-mox-matchers.js",
   "license": "MIT",
   "ignore": [
-    "test",
     ".bowerrc",
     ".gitignore",
-    ".jscsrc",
-    ".jshintrc",
     ".travis.yml",
     "bower.json",
-    "Gruntfile.js",
-    "karma.*.js",
+    "karma.conf.js",
     "package.json",
-    "wallaby.base.conf.js"
+    "wallaby.conf.js"
   ],
   "dependencies": {},
   "devDependencies": {}

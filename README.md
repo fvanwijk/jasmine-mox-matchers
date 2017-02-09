@@ -146,4 +146,4 @@ expect(element).toContainIsolateScope({ bindingKey: 'value' });
 
 * `npm install`
 
-Run `grunt -h` to see available tasks.
+Run `npm run` to see available tasks.
