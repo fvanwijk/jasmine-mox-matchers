@@ -14,6 +14,9 @@
   "devDependencies": {
     "angular-mocks": "1.6.2",
     "del-cli": "0.2.1",
+    "eslint": "3.15.0",
+    "eslint-config-airbnb-base": "11.1.0",
+    "eslint-plugin-import": "2.2.0",
     "grunt": "1.0.1",
     "grunt-contrib-jshint": "1.1.0",
     "grunt-jscs": "3.0.1",
@@ -31,7 +34,8 @@
   "scripts": {
     "build": "uglifyjs src/jasmine-mox-matchers.js -o dist/jasmine-mox-matchers.min.js",
     "clean": "del dist coverage",
-    "qa": "grunt test && npm run test:unit",
+    "lint:js": "eslint . --color",
+    "qa": "npm run lint:js && npm run test:unit",
     "prepublish": "npm run clean && npm run qa && npm run build",
     "preversion": "npm run qa",
     "test:unit": "karma start"
