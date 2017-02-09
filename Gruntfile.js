@@ -54,16 +54,11 @@ module.exports = function (grunt) {
         dest: paths.dist,
         ext: '.min.js'
       }
-    },
-    karma: {
-      dist: {
-        configFile: 'karma.conf.js'
-      }
     }
   });
 
   grunt.registerTask('build', ['clean', 'test', 'uglify']);
-  grunt.registerTask('test', ['jscs', 'jshint', 'karma']);
+  grunt.registerTask('test', ['jscs', 'jshint']);
   grunt.registerTask('default', ['build']);
 
 };
