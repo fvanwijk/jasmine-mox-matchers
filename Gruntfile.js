@@ -3,16 +3,11 @@ module.exports = function (grunt) {
 
   var paths = {
     src: 'src',
-    test: 'test',
-    dist: 'dist'
+    test: 'test'
   };
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    clean: {
-      dist: paths.dist,
-      coverage: 'coverage'
-    },
     jshint: {
       options: {
         jshintrc: '.jshintrc',
@@ -37,28 +32,10 @@ module.exports = function (grunt) {
       config: {
         src: ['*.js', paths.test + '/{,!(spec)}/*.js']
       }
-    },
-    concat: {
-      dist: {
-        src: [
-          paths.src + '/**/*.js'
-        ],
-        dest: paths.dist + '/<%= pkg.name %>.js'
-      }
-    },
-    uglify: {
-      build: {
-        expand: true,
-        cwd: 'src/',
-        src: '*.js', // dist when using concat
-        dest: paths.dist,
-        ext: '.min.js'
-      }
     }
   });
 
-  grunt.registerTask('build', ['clean', 'test', 'uglify']);
   grunt.registerTask('test', ['jscs', 'jshint']);
-  grunt.registerTask('default', ['build']);
+  grunt.registerTask('default', ['test']);
 
 };

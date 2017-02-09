@@ -13,11 +13,9 @@
   },
   "devDependencies": {
     "angular-mocks": "1.6.2",
+    "del-cli": "0.2.1",
     "grunt": "1.0.1",
-    "grunt-contrib-clean": "1.0.0",
-    "grunt-contrib-concat": "1.0.1",
     "grunt-contrib-jshint": "1.1.0",
-    "grunt-contrib-uglify": "2.1.0",
     "grunt-jscs": "3.0.1",
     "jasmine-core": "2.5.2",
     "jshint-stylish": "2.2.1",
@@ -31,8 +29,10 @@
     "testception": "1.0.1"
   },
   "scripts": {
+    "build": "uglifyjs src/jasmine-mox-matchers.js -o dist/jasmine-mox-matchers.min.js",
+    "clean": "del dist coverage",
     "qa": "grunt test && npm run test:unit",
-    "prepublish": "grunt",
+    "prepublish": "npm run clean && npm run qa && npm run build",
     "preversion": "npm run qa",
     "test:unit": "karma start"
   },
