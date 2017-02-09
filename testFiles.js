@@ -17,7 +17,7 @@ module.exports = [
   {
     type: 'specs',
     files: [
-      'test/spec/matchers-spec.js'
+      'src/jasmine-mox-matchers.spec.js'
     ]
   }
 ];

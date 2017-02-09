@@ -21,9 +21,15 @@
   "globals": {
     "_": false,
     "angular": false,
+    "createController": false,
+    "createScope": false,
     "expectMatcher": false,
+    "getMockData": false,
+    "inject": false,
+    "jasmineMoxMatchers": false,
     "jasmineV1MoxMatchers": true,
     "jasmineV2MoxMatchers": true,
-    "module": false
+    "module": false,
+    "mox": false
   }
 }

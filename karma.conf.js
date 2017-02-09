@@ -1,11 +1,11 @@
-var karmaFiles = require('test-runner-config').getKarmaFiles(require('./test/testFiles'));
+var karmaFiles = require('test-runner-config').getKarmaFiles(require('./testFiles'));
 
 module.exports = function (config) {
   config.set({
     basePath: '',
     frameworks: ['jasmine'],
     preprocessors: {
-      'src/**/*.js': ['coverage']
+      'src/jasmine-mox-matchers.js': ['coverage']
     },
     files: karmaFiles.files,
     exclude: karmaFiles.exclude,
@@ -19,12 +19,20 @@ module.exports = function (config) {
     captureTimeout: 5000,
     singleRun: true,
     coverageReporter: {
-      dir: 'test/coverage',
+      dir: 'coverage',
+      subdir: '.',
       reporters: [
         { type: 'lcov' },
-        { type: 'text-summary' },
-        { type: 'json' }
-      ]
+        { type: 'text-summary' }
+      ],
+      check: {
+        each: {
+          statements: 97,
+          branches: 80,
+          functions: 100,
+          lines: 97
+        }
+      }
     }
   });
 };

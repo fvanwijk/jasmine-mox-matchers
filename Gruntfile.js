@@ -11,7 +11,7 @@ module.exports = function (grunt) {
     pkg: grunt.file.readJSON('package.json'),
     clean: {
       dist: paths.dist,
-      coverage: paths.test + '/coverage'
+      coverage: 'coverage'
     },
     jshint: {
       options: {
@@ -20,12 +20,6 @@ module.exports = function (grunt) {
       },
       all: {
         src: paths.src + '/**/*.js'
-      },
-      test: {
-        options: {
-          jshintrc: 'test/.jshintrc'
-        },
-        src: [paths.test + '/spec/**/*.js']
       },
       config: {
         src: ['*.js', paths.test + '/{,!(spec)}/*.js']
@@ -40,26 +34,8 @@ module.exports = function (grunt) {
           src: [paths.src + '/**/*.js']
         }
       },
-      test: {
-        src: [paths.test + '/spec/**/*.js']
-      },
       config: {
         src: ['*.js', paths.test + '/{,!(spec)}/*.js']
-      }
-    },
-
-    coverage: {
-      dist: {
-        options: {
-          thresholds: {
-            statements: 97,
-            branches: 80,
-            functions: 100,
-            lines: 97
-          },
-          dir: 'coverage',
-          root: paths.test + ''
-        }
       }
     },
     concat: {
@@ -87,7 +63,7 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('build', ['clean', 'test', 'uglify']);
-  grunt.registerTask('test', ['jscs', 'jshint', 'karma', 'coverage']);
+  grunt.registerTask('test', ['jscs', 'jshint', 'karma']);
   grunt.registerTask('default', ['build']);
 
 };

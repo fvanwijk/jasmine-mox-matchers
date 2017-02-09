@@ -1,4 +1,4 @@
-var wallabyFiles = require('test-runner-config').getWallabyFiles(require('./test/testFiles'));
+var wallabyFiles = require('test-runner-config').getWallabyFiles(require('./testFiles'));
 
 module.exports = function () {
   return {
