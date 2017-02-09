@@ -5,7 +5,7 @@ module.exports = [
       'node_modules/lodash/lodash.js',
       'node_modules/angular/angular.js',
       'node_modules/angular-mocks/angular-mocks.js',
-      'node_modules/testception/src/testception.js'
+      'node_modules/testception/dist/testception.min.js'
     ]
   },
   {
