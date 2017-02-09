@@ -27,7 +27,7 @@
     "testception": "1.0.1"
   },
   "scripts": {
-    "build": "uglifyjs src/jasmine-mox-matchers.js -o dist/jasmine-mox-matchers.min.js",
+    "build": "mkdir dist && uglifyjs src/jasmine-mox-matchers.js -o ./dist/jasmine-mox-matchers.min.js",
     "clean": "del dist coverage",
     "lint:js": "eslint . --color",
     "qa": "npm run lint:js && npm run test:unit",
