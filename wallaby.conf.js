@@ -9,13 +9,12 @@ module.exports = function (wallaby) {
       'src/*.js': wallaby.compilers.babel()
     },
     postprocessor: webpackPostprocessor,
-
     bootstrap() {
       window.__moduleBundler.loadTests();
     },
     files: [
-      'node_modules/angular/angular.js',
-      'node_modules/angular-mocks/angular-mocks.js',
+      { pattern: 'node_modules/angular/angular.js', instrument: false },
+      { pattern: 'node_modules/angular-mocks/angular-mocks.js', instrument: false },
       { pattern: 'src/jasmine-mox-matchers.js', load: false }
     ],
     tests: [
