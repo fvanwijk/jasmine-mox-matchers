@@ -27,7 +27,7 @@ function getConfig(env) {
     output: {
       path: path.join(__dirname, '/dist'),
       filename: '[name].js',
-      library: 'JasmineMoxMatchers',
+      library: 'jasmineMoxMatchers',
       libraryTarget: 'umd',
       umdNamedDefine: true
     },
