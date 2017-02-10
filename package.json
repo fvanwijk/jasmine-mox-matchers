@@ -30,7 +30,6 @@
     "karma-phantomjs-launcher": "1.0.2",
     "karma-webpack": "2.0.2",
     "phantomjs-prebuilt": "2.1.14",
-    "test-runner-config": "0.5.0",
     "testception": "1.0.1",
     "wallaby-webpack": "0.0.33",
     "webpack": "2.2.1"
