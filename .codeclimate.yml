@@ -1,7 +1,10 @@
 engines:
   eslint:
-    enabled: true,
+    enabled: true
     channel: "eslint-3"
+    checks:
+      import/no-unresolved:
+        enabled: false
 ratings:
   paths:
   - "src/**/*"
