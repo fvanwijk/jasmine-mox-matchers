@@ -1,5 +1,4 @@
-Jasmine Mox Matchers
-================
+# Jasmine Mox Matchers
 
 [![Build Status](https://travis-ci.org/fvanwijk/jasmine-mox-matchers.svg?branch=master)](https://travis-ci.org/fvanwijk/jasmine-mox-matchers)
 [![Test Coverage](https://codeclimate.com/github/fvanwijk/jasmine-mox-matchers/badges/coverage.svg)](https://codeclimate.com/github/fvanwijk/jasmine-mox-matchers)
@@ -14,7 +13,7 @@ They were made for the Resource testing DSL in [Mox](http://www.github.com/fvanw
 * Matcher for testing query parameters
 * Matcher for directive isolate scope testing
 
-# Installing
+## Installing
 
 `bower install jasmine-mox-matchers --save-dev` or `npm install jasmine-mox-matchers`.
 
@@ -28,9 +27,9 @@ beforeEach(function () {
 });
 ```
 
-# Documentation
+## Documentation
 
-## Promise matchers
+### Promise matchers
 
 [Promises](https://docs.angularjs.org/api/ng/service/$q) are a powerful concept in Javascript but somewhat hard to test. Your test case usually may look like this:
 
@@ -54,7 +53,7 @@ If the promise does not resolve or rejects, the `expect` will not be called and 
 
 In short, these promise matchers are really clean to use and have a correctly implemented 'failing' case.
 
-## Query parameter matcher
+### Query parameter matcher
 
 Test if query parameters exist in a certain URL.
 
@@ -70,7 +69,7 @@ expect(path).toHaveQueryParams({ param1: 'param1' }, true); // This fails
 expect(path).toHaveQueryParams({ param1: 'param1', param2: 'param2' }, true); // This passes
 ```
 
-## Directive matcher
+### Directive matcher
 
 When you mock a directive away, you still want to test of scope vars are passed to the directive correctly. This can be tested by testing the directive attribute.
 These attributes usually are models or expressions, so you will be testing the literal value of the attribute.
@@ -87,9 +86,9 @@ expect(element).toContainIsolateScope({
 });
 ```
 
-# API
+## API
 
-## toBePromise()
+### toBePromise()
 Tests if a given object is a promise object.
 The Promises/A spec (http://wiki.commonjs.org/wiki/Promises/A) only says it must have a function 'then', so, I guess we'll go with that for now.
 
@@ -97,14 +96,14 @@ The Promises/A spec (http://wiki.commonjs.org/wiki/Promises/A) only says it must
 expect(promise).toBePromise();
 ```
 
-## toResolve() / toHaveBeenResolved()
+### toResolve() / toHaveBeenResolved()
 Asserts that a Promise is resolved.
 
 ```javascript
 expect(promise).toResolve();
 ```
 
-## toResolveWith() / toHaveBeenResolved()
+### toResolveWith() / toHaveBeenResolved()
 Verifies that a Promise is resolved with the specified argument.
 
 ```javascript
@@ -119,14 +118,14 @@ expect(promise).toResolveWith(function (data) { // Checks only if the promise re
 });
 ```
 
-## toReject() / toHaveBeenRejected()
+### toReject() / toHaveBeenRejected()
 Asserts that a Promise is rejected before the end of the test.
 
 ```javascript
 expect(promise).toReject();
 ```
 
-## toRejectWith() / toHaveBeenRejectedWith()
+### toRejectWith() / toHaveBeenRejectedWith()
 
 Asserts that a Promise is rejected with the specified argument.
 
@@ -142,7 +141,7 @@ expect(promise).toRejectWith(function (data) { // Checks only if the promise rej
 });
 ```
   
-## toContainIsolateScope()
+### toContainIsolateScope()
 
 Asserts that the passed key/value pairs are on the isolate scope of the element.
 
@@ -150,7 +149,7 @@ Asserts that the passed key/value pairs are on the isolate scope of the element.
 expect(element).toContainIsolateScope({ bindingKey: 'value' });
 ```
 
-# Development
+## Development
 
 * `npm install`
 
