@@ -1,5 +1,7 @@
 # Jasmine Mox Matchers
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/fvanwijk/jasmine-mox-matchers.svg)](https://greenkeeper.io/)
+
 [![Build Status](https://travis-ci.org/fvanwijk/jasmine-mox-matchers.svg?branch=master)](https://travis-ci.org/fvanwijk/jasmine-mox-matchers)
 [![Test Coverage](https://codeclimate.com/github/fvanwijk/jasmine-mox-matchers/badges/coverage.svg)](https://codeclimate.com/github/fvanwijk/jasmine-mox-matchers)
 [![Code Climate](https://codeclimate.com/github/fvanwijk/jasmine-mox-matchers/badges/gpa.svg)](https://codeclimate.com/github/fvanwijk/jasmine-mox-matchers)
