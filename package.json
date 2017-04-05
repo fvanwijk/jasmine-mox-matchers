@@ -33,7 +33,7 @@
     "phantomjs-prebuilt": "2.1.14",
     "testception": "1.0.1",
     "wallaby-webpack": "0.0.38",
-    "webpack": "2.3.1"
+    "webpack": "2.3.3"
   },
   "scripts": {
     "build": "npm run webpack",
