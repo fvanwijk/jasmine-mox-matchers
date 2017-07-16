@@ -21,7 +21,7 @@
     "del-cli": "1.1.0",
     "eslint": "4.2.0",
     "eslint-config-airbnb-base": "11.2.0",
-    "eslint-plugin-import": "2.6.0",
+    "eslint-plugin-import": "2.6.1",
     "isparta": "4.0.0",
     "isparta-loader": "2.0.0",
     "jasmine-core": "2.6.4",
