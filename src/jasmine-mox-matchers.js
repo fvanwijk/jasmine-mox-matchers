@@ -180,14 +180,12 @@ function toRejectWith() {
 
 function toHaveQueryParams() {
   function queryStringFilter(str) {
-    const params = {};
     return str
       .replace(/(^\?)/, '')
       .split('&')
       .map((n) => {
-        const parts = n.split('=');
-        params[parts[0]] = parts[1];
-        return params;
+        const [key, value] = n.split('=');
+        return { [key]: value };
       })[0];
   }
 
