@@ -207,38 +207,38 @@ describe('the promise matchers', () => {
 
         it('should pass when the actual string has the expected query params', () => {
           test
-            .withActual('path?param1=param1')
-            .andExpected({ param1: 'param1' })
+            .withActual('path?key1=value1')
+            .andExpected({ key1: 'value1' })
             .toPass()
-            .withMessage('Expected URI not to have params Object({ param1: \'param1\' }), actual params were Object({' +
-              ' param1: \'param1\' }) in \'path?param1=param1\'');
+            .withMessage('Expected URI not to have params Object({ key1: \'value1\' }), actual params were Object({' +
+              ' key1: \'value1\' }) in \'path?key1=value1\'');
         });
 
         it('should fail when the actual string does not have the expected query params', () => {
           test
-            .withActual('path?param1=param1')
-            .andExpected({ param2: 'param2' })
+            .withActual('path?key1=value1')
+            .andExpected({ key2: 'value2' })
             .toFail()
-            .withMessage('Expected URI to have params Object({ param2: \'param2\' }), actual params were Object({ ' +
-              'param1: \'param1\' }) in \'path?param1=param1\'');
+            .withMessage('Expected URI to have params Object({ key2: \'value2\' }), actual params were Object({ ' +
+              'key1: \'value1\' }) in \'path?key1=value1\'');
         });
 
         it('should pass when the actual string does strictly have the expected query params', () => {
           test
-            .withActual('path?param1=param1&param2=param2')
-            .andExpected({ param1: 'param1', param2: 'param2' }, true)
+            .withActual('path?key1=value1&key2=value2')
+            .andExpected({ key1: 'value1', key2: 'value2' }, true)
             .toPass()
-            .withMessage('Expected URI not to have params Object({ param1: \'param1\', param2: \'param2\' }), actual ' +
-              'params were Object({ param1: \'param1\', param2: \'param2\' }) in \'path?param1=param1&param2=param2\'');
+            .withMessage('Expected URI not to have params Object({ key1: \'value1\', key2: \'value2\' }), actual ' +
+              'params were Object({ key1: \'value1\', key2: \'value2\' }) in \'path?key1=value1&key2=value2\'');
         });
 
         it('should fail when the actual string does strictly not have the expected query params', () => {
           test
-            .withActual('path?param1=param1&param2=param2')
-            .andExpected({ param1: 'param1' }, true)
+            .withActual('path?key1=value1&key2=value2')
+            .andExpected({ key1: 'value1' }, true)
             .toFail()
-            .withMessage('Expected URI to have params Object({ param1: \'param1\' }), actual params were Object({ ' +
-              'param1: \'param1\', param2: \'param2\' }) in \'path?param1=param1&param2=param2\'');
+            .withMessage('Expected URI to have params Object({ key1: \'value1\' }), actual params were Object({ ' +
+              'key1: \'value1\', key2: \'value2\' }) in \'path?key1=value1&key2=value2\'');
         });
       });
 
