@@ -183,10 +183,10 @@ function toHaveQueryParams() {
     return str
       .replace(/(^\?)/, '')
       .split('&')
-      .map((n) => {
+      .reduce((params, n) => {
         const [key, value] = n.split('=');
-        return { [key]: value };
-      })[0];
+        return { ...params, [key]: value };
+      }, {});
   }
 
   return {
