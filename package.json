@@ -33,7 +33,7 @@
     "karma-webpack": "2.0.5",
     "phantomjs-prebuilt": "2.1.15",
     "testception": "1.0.1",
-    "wallaby-webpack": "0.0.40",
+    "wallaby-webpack": "0.0.42",
     "webpack": "3.7.0"
   },
   "scripts": {
