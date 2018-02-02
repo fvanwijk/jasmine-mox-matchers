@@ -9,7 +9,7 @@
   },
   "main": "./dist/jasmine-mox-matchers.js",
   "dependencies": {
-    "angular": "1.6.8",
+    "angular": "1.6.9",
     "lodash": "4.17.4"
   },
   "devDependencies": {
