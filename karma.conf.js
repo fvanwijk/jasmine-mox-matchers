@@ -41,10 +41,10 @@ module.exports = function(config) {
       reports: ['html', 'text-summary', 'lcov'],
       thresholds: {
         each: {
-          statements: 98,
+          statements: 100,
           branches: 83,
           functions: 100,
-          lines: 98
+          lines: 100
         }
       }
     }

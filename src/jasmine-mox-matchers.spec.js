@@ -56,6 +56,15 @@ describe('the promise matchers', () => {
       describe('toResolve', () => {
         useMatcher('toResolve', version);
 
+        it('should throw error when the actual is not a promise', () => {
+          expect(
+            test
+              .withActual(undefined)
+              .andExpected(undefined)
+              .toFail().withMessage
+          ).toThrow(new Error('undefined is not a promise'));
+        });
+
         it('should assert promises that are resolved as resolved', () => {
           test
             .withActual($q.resolve())
@@ -81,6 +90,15 @@ describe('the promise matchers', () => {
 
       describe('toResolveWith', () => {
         useMatcher('toResolveWith', version);
+
+        it('should throw error when the actual is not a promise', () => {
+          expect(
+            test
+              .withActual(undefined)
+              .andExpected(undefined)
+              .toFail().withMessage
+          ).toThrow(new Error('undefined is not a promise'));
+        });
 
         it('should assert promises that are resolved with some value as resolved with that value', () => {
           const def = $q.defer();
@@ -125,6 +143,15 @@ describe('the promise matchers', () => {
       describe('toReject', () => {
         useMatcher('toReject', version);
 
+        it('should throw error when the actual is not a promise', () => {
+          expect(
+            test
+              .withActual(undefined)
+              .andExpected(undefined)
+              .toFail().withMessage
+          ).toThrow(new Error('undefined is not a promise'));
+        });
+
         it('should assert promises that are rejected as rejected', () => {
           const def = $q.defer();
           def.reject();
@@ -156,6 +183,15 @@ describe('the promise matchers', () => {
 
       describe('toRejectWith', () => {
         useMatcher('toRejectWith', version);
+
+        it('should throw error when the actual is not a promise', () => {
+          expect(
+            test
+              .withActual(undefined)
+              .andExpected(undefined)
+              .toFail().withMessage
+          ).toThrow(new Error('undefined is not a promise'));
+        });
 
         it('should assert promises that are rejected with some message as rejected with that message', () => {
           const def = $q.defer();
