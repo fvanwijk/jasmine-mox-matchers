@@ -205,7 +205,7 @@ function toContainIsolateScope() {
   return {
     compare(actual, expected) {
       let cleanedScope;
-      let pass;
+      let pass = false;
       let messagePostfix;
       if (actual.isolateScope()) {
         cleanedScope = {};
@@ -218,17 +218,11 @@ function toContainIsolateScope() {
         pass = _.isEqual(_.pick(cleanedScope, _.keys(expected)), expected);
         messagePostfix = 'got {1}';
       } else {
-        pass = false;
         messagePostfix = 'the expected element has no isolate scope';
       }
+      const message = `Expected element isolate scope {not} to contain {0} but ${messagePostfix}`;
 
-      return getResult(
-        'toContainIsolateScope',
-        pass,
-        `Expected element isolate scope {not} to contain {0} but ${messagePostfix}`,
-        expected,
-        cleanedScope
-      );
+      return getResult('toContainIsolateScope', pass, message, expected, cleanedScope);
     }
   };
 }

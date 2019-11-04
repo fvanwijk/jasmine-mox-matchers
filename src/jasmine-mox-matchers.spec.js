@@ -57,12 +57,7 @@ describe('the promise matchers', () => {
         useMatcher('toResolve', version);
 
         it('should throw error when the actual is not a promise', () => {
-          expect(
-            test
-              .withActual(undefined)
-              .andExpected(undefined)
-              .toFail().withMessage
-          ).toThrow(new Error('undefined is not a promise'));
+          expect(test.withMessage).toThrow(new Error('undefined is not a promise'));
         });
 
         it('should assert promises that are resolved as resolved', () => {
@@ -92,12 +87,7 @@ describe('the promise matchers', () => {
         useMatcher('toResolveWith', version);
 
         it('should throw error when the actual is not a promise', () => {
-          expect(
-            test
-              .withActual(undefined)
-              .andExpected(undefined)
-              .toFail().withMessage
-          ).toThrow(new Error('undefined is not a promise'));
+          expect(test.withMessage).toThrow(new Error('undefined is not a promise'));
         });
 
         it('should assert promises that are resolved with some value as resolved with that value', () => {
@@ -144,12 +134,7 @@ describe('the promise matchers', () => {
         useMatcher('toReject', version);
 
         it('should throw error when the actual is not a promise', () => {
-          expect(
-            test
-              .withActual(undefined)
-              .andExpected(undefined)
-              .toFail().withMessage
-          ).toThrow(new Error('undefined is not a promise'));
+          expect(test.withMessage).toThrow(new Error('undefined is not a promise'));
         });
 
         it('should assert promises that are rejected as rejected', () => {
@@ -185,12 +170,7 @@ describe('the promise matchers', () => {
         useMatcher('toRejectWith', version);
 
         it('should throw error when the actual is not a promise', () => {
-          expect(
-            test
-              .withActual(undefined)
-              .andExpected(undefined)
-              .toFail().withMessage
-          ).toThrow(new Error('undefined is not a promise'));
+          expect(test.withMessage).toThrow(new Error('undefined is not a promise'));
         });
 
         it('should assert promises that are rejected with some message as rejected with that message', () => {
