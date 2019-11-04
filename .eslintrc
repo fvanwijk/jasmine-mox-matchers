@@ -13,9 +13,5 @@
   "rules": {
     "func-names": [2, "never"],
     "prettier/prettier": "error"
-  },
-  "globals": {
-    "angular": false,
-    "inject": true
   }
 }

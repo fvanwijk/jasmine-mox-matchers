@@ -1,5 +1,5 @@
 /**
- * This spec tests both jasmine 1 and 2 matchers, but is using Jasmine 2, so the lines where
+ * This spec tests both jasmine 1 and 2+ matchers, but is using Jasmine 4, so the lines where
  * there is a slight difference between Jasmine 1 and 2 in the matchers, are not tested for Jasmine 1.
  */
 import expectMatcher from 'testception';
@@ -12,9 +12,7 @@ describe('the promise matchers', () => {
 
   function useMatcher(matcherName, jasmineVersion) {
     beforeEach(() => {
-      test = expectMatcher(
-        JasmineMoxMatchers[`v${jasmineVersion}`][matcherName]
-      );
+      test = expectMatcher(JasmineMoxMatchers[`v${jasmineVersion}`][matcherName]);
     });
   }
 
@@ -37,9 +35,7 @@ describe('the promise matchers', () => {
           test
             .withActual({ then: angular.noop })
             .toPass()
-            .withMessage(
-              'Expected Object({ then: Function }) not to be a promise'
-            );
+            .withMessage('Expected Object({ then: Function }) not to be a promise');
         });
 
         it('should assert a falsy actual not to be a promise', () => {
@@ -94,9 +90,7 @@ describe('the promise matchers', () => {
             .withActual(def.promise)
             .andExpected('value')
             .toPass()
-            .withMessage(
-              "Expected promise not to have been resolved with 'value' but was resolved with 'value'"
-            );
+            .withMessage("Expected promise not to have been resolved with 'value' but was resolved with 'value'");
         });
 
         it('should fail when the promise does not resolve', () => {
@@ -104,9 +98,7 @@ describe('the promise matchers', () => {
             .withActual($q.defer().promise)
             .andExpected('value')
             .toFail()
-            .withMessage(
-              "Expected promise to have been resolved with 'value' but it was not resolved at all"
-            );
+            .withMessage("Expected promise to have been resolved with 'value' but it was not resolved at all");
         });
 
         it('should pass when the expected value is a callback function and the promise resolves', () => {
@@ -116,9 +108,7 @@ describe('the promise matchers', () => {
               expect(res).toEqual('value');
             })
             .toPass()
-            .withMessage(
-              "Expected promise not to have been resolved with Function but was resolved with 'value'"
-            );
+            .withMessage("Expected promise not to have been resolved with Function but was resolved with 'value'");
         });
 
         it('should fail when the promise resolves to another value than the expected value', () => {
@@ -127,8 +117,7 @@ describe('the promise matchers', () => {
             .andExpected('another value')
             .toFail()
             .withMessage(
-              "Expected promise to have been resolved with 'another value' but was resolved with " +
-                "'value'"
+              "Expected promise to have been resolved with 'another value' but was resolved with " + "'value'"
             );
         });
       });
@@ -177,8 +166,7 @@ describe('the promise matchers', () => {
             .andExpected('message')
             .toPass()
             .withMessage(
-              "Expected promise not to have been rejected with 'message' but was rejected with " +
-                "'message'"
+              "Expected promise not to have been rejected with 'message' but was rejected with " + "'message'"
             );
         });
 
@@ -187,9 +175,7 @@ describe('the promise matchers', () => {
             .withActual($q.defer().promise)
             .andExpected('message')
             .toFail()
-            .withMessage(
-              "Expected promise to have been rejected with 'message' but it was not rejected at all"
-            );
+            .withMessage("Expected promise to have been rejected with 'message' but it was not rejected at all");
         });
 
         it('should pass when the expected value is a callback function and the promise rejects', () => {
@@ -202,9 +188,7 @@ describe('the promise matchers', () => {
               expect(res).toEqual('value');
             })
             .toPass()
-            .withMessage(
-              "Expected promise not to have been rejected with Function but was rejected with 'value'"
-            );
+            .withMessage("Expected promise not to have been rejected with Function but was rejected with 'value'");
         });
 
         it('should fail when the promise rejects to another value than the expected value', () => {
@@ -216,8 +200,7 @@ describe('the promise matchers', () => {
             .andExpected('another message')
             .toFail()
             .withMessage(
-              "Expected promise to have been rejected with 'another message' but was rejected with " +
-                "'message'"
+              "Expected promise to have been rejected with 'another message' but was rejected with " + "'message'"
             );
         });
       });
@@ -326,8 +309,7 @@ describe('the promise matchers', () => {
             .andExpected({ $key1: 'value1' })
             .toFail()
             .withMessage(
-              "Expected element isolate scope to contain Object({ $key1: 'value1' }) but got " +
-                'Object({  })'
+              "Expected element isolate scope to contain Object({ $key1: 'value1' }) but got " + 'Object({  })'
             );
         });
       });
@@ -340,33 +322,25 @@ describe('the promise matchers', () => {
 
   describe('toHaveBeenResolved', () => {
     it('is the same matcher as toResolve', () => {
-      expect(JasmineMoxMatchers.v2.toHaveBeenResolved).toEqual(
-        JasmineMoxMatchers.v2.toResolve
-      );
+      expect(JasmineMoxMatchers.v2.toHaveBeenResolved).toEqual(JasmineMoxMatchers.v2.toResolve);
     });
   });
 
   describe('toHaveBeenResolvedWith', () => {
     it('is the same matcher as toResolveWith', () => {
-      expect(JasmineMoxMatchers.v2.toHaveBeenResolvedWith).toBe(
-        JasmineMoxMatchers.v2.toResolveWith
-      );
+      expect(JasmineMoxMatchers.v2.toHaveBeenResolvedWith).toBe(JasmineMoxMatchers.v2.toResolveWith);
     });
   });
 
   describe('toHaveBeenRejected', () => {
     it('is the same matcher as toReject', () => {
-      expect(JasmineMoxMatchers.v2.toHaveBeenRejected).toBe(
-        JasmineMoxMatchers.v2.toReject
-      );
+      expect(JasmineMoxMatchers.v2.toHaveBeenRejected).toBe(JasmineMoxMatchers.v2.toReject);
     });
   });
 
   describe('toHaveBeenRejectedWith', () => {
     it('is the same matcher as toRejectWith', () => {
-      expect(JasmineMoxMatchers.v2.toHaveBeenRejectedWith).toBe(
-        JasmineMoxMatchers.v2.toRejectWith
-      );
+      expect(JasmineMoxMatchers.v2.toHaveBeenRejectedWith).toBe(JasmineMoxMatchers.v2.toRejectWith);
     });
   });
 });
