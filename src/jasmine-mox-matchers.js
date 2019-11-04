@@ -1,9 +1,9 @@
 import _ from 'lodash';
 
 let currentSpec;
-const isJasmine2 = /^2/.test(jasmine.version);
+const isJasmine2 = !/^1/.test(jasmine.version);
 
-beforeEach(function () {
+beforeEach(function() {
   currentSpec = this;
 });
 
@@ -24,7 +24,11 @@ function createScope() {
  * @returns {string}
  */
 function format(str, ...args) {
-  return args.reduce((msg, arg, i) => msg.replace(new RegExp(`\\{${i}\\}`, 'g'), jasmine.pp(arg)), str);
+  return args.reduce(
+    (msg, arg, i) =>
+      msg.replace(new RegExp(`\\{${i}\\}`, 'g'), jasmine.pp(arg)),
+    str
+  );
 }
 
 /**
@@ -49,11 +53,8 @@ function getResult(matcherName, pass, ...messageWithPlaceholderValues) {
  * @returns {Function}
  */
 function convertMessage(message) {
-  return function () {
-    return [
-      message.replace(' {not}', ''),
-      message.replace('{not}', 'not')
-    ];
+  return function() {
+    return [message.replace(' {not}', ''), message.replace('{not}', 'not')];
   };
 }
 
@@ -85,10 +86,14 @@ function createPromiseWith(actual, expected, verb) {
 
   const spy = verb === 'resolved' ? success : failure;
   let pass = false;
-  let message = `Expected promise to have been ${verb} with ${jasmine.pp(expected)} but it was not ${verb} at all`;
+  let message = `Expected promise to have been ${verb} with ${jasmine.pp(
+    expected
+  )} but it was not ${verb} at all`;
 
   if (isJasmine2 ? spy.calls.any() : spy.calls.length) {
-    const actualResult = isJasmine2 ? spy.calls.mostRecent().args[0] : spy.mostRecentCall.args[0];
+    const actualResult = isJasmine2
+      ? spy.calls.mostRecent().args[0]
+      : spy.mostRecentCall.args[0];
     if (angular.isFunction(expected)) {
       expected(actualResult);
       pass = true;
@@ -96,11 +101,17 @@ function createPromiseWith(actual, expected, verb) {
       pass = angular.equals(actualResult, expected);
     }
 
-    message = `Expected promise {not} to have been ${verb} with ${jasmine.pp(expected)} but was ${verb} with \
+    message = `Expected promise {not} to have been ${verb} with ${jasmine.pp(
+      expected
+    )} but was ${verb} with \
 ${jasmine.pp(actualResult)}`;
   }
 
-  return getResult(`to${verb === 'resolved' ? 'Resolve' : 'Reject'}With`, pass, message);
+  return getResult(
+    `to${verb === 'resolved' ? 'Resolve' : 'Reject'}With`,
+    pass,
+    message
+  );
 }
 
 /*
@@ -112,7 +123,12 @@ function toBePromise() {
   return {
     compare(actual) {
       const pass = isPromise(actual);
-      return getResult('toBePromise', pass, 'Expected {0} {not} to be a promise', actual);
+      return getResult(
+        'toBePromise',
+        pass,
+        'Expected {0} {not} to be a promise',
+        actual
+      );
     }
   };
 }
@@ -160,7 +176,11 @@ function toReject() {
       createScope().$digest();
       const pass = isJasmine2 ? failure.calls.any() : failure.calls.length > 0;
 
-      return getResult('toReject', pass, 'Expected promise {not} to have been rejected');
+      return getResult(
+        'toReject',
+        pass,
+        'Expected promise {not} to have been rejected'
+      );
     }
   };
 }
@@ -191,10 +211,21 @@ function toHaveQueryParams() {
 
   return {
     compare(actual, expected, strict) {
-      const actualParams = queryStringFilter(actual.substring(actual.indexOf('?')));
-      const pass = _.matches(expected)(actualParams) && (!strict || _.matches(actualParams)(expected));
-      return getResult('toHaveQueryParams', pass, 'Expected URI {not} to have params {0}, actual params were {1} ' +
-        'in {2}', expected, actualParams, actual);
+      const actualParams = queryStringFilter(
+        actual.substring(actual.indexOf('?'))
+      );
+      const pass =
+        _.matches(expected)(actualParams) &&
+        (!strict || _.matches(actualParams)(expected));
+      return getResult(
+        'toHaveQueryParams',
+        pass,
+        'Expected URI {not} to have params {0}, actual params were {1} ' +
+          'in {2}',
+        expected,
+        actualParams,
+        actual
+      );
     }
   };
 }
@@ -220,8 +251,14 @@ function toContainIsolateScope() {
         messagePostfix = 'the expected element has no isolate scope';
       }
 
-      return getResult('toContainIsolateScope', pass, `Expected element isolate scope {not} to contain {0} but \
-${messagePostfix}`, expected, cleanedScope);
+      return getResult(
+        'toContainIsolateScope',
+        pass,
+        `Expected element isolate scope {not} to contain {0} but \
+${messagePostfix}`,
+        expected,
+        cleanedScope
+      );
     }
   };
 }
@@ -230,7 +267,7 @@ function convertMatchers(matchers) {
   const jasmine1Matchers = {};
   angular.forEach(matchers, (matcher, name) => {
     function matcherFactory(compareFn) {
-      return function (...args) {
+      return function(...args) {
         const result = compareFn.apply(this, [this.actual].concat(args));
         this.message = convertMessage(messages[name]);
         return result.pass;

@@ -1,22 +1,21 @@
 {
-    "env": {
-        "jasmine": true,
-        "node": true,
-        "browser": true
-    },
-    "extends": "airbnb-base",
-    "plugins": [
-        "import"
-    ],
-    "rules": {
-        "comma-dangle": [2, "never"],
-        "func-names": [2, "never"],
-        "import/no-extraneous-dependencies": [2, {"devDependencies": true }],
-        "max-len": [2, 120],
-        "no-underscore-dangle": [2, { "allow": ["__moduleBundler"] }]
-    },
-    "globals": {
-        "angular": false,
-        "inject": true
-    }
+  "env": {
+    "jasmine": true,
+    "node": true,
+    "browser": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "extends": ["plugin:prettier/recommended"],
+  "plugins": ["prettier"],
+  "rules": {
+    "func-names": [2, "never"],
+    "prettier/prettier": "error"
+  },
+  "globals": {
+    "angular": false,
+    "inject": true
+  }
 }

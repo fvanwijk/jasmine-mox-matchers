@@ -1,8 +1,9 @@
-module.exports = function (config) {
+const path = require('path');
+
+module.exports = function(config) {
   config.set({
     frameworks: ['jasmine'],
     preprocessors: {
-      'src/jasmine-mox-matchers.js': ['coverage'],
       'src/jasmine-mox-matchers.spec.js': ['webpack']
     },
     files: [
@@ -11,38 +12,39 @@ module.exports = function (config) {
       'src/jasmine-mox-matchers.spec.js'
     ],
     webpack: {
+      mode: 'none',
       module: {
-        loaders: [
+        rules: [
           {
             test: /\.js$/,
             exclude: /node_modules/,
             loader: 'babel-loader'
           },
           {
-            test: /jasmine-mox-matchers\.js$/,
-            include: /src/,
-            loader: 'isparta-loader'
+            test: /\.js$/,
+            use: {
+              loader: 'istanbul-instrumenter-loader',
+              options: { esModules: true }
+            },
+            include: path.resolve('src/')
           }
         ]
       }
     },
-    reporters: ['progress', 'coverage'],
+    reporters: ['progress', 'coverage-istanbul'],
     logLevel: config.LOG_INFO,
-    browsers: ['PhantomJS'],
+    browsers: ['jsdom'],
     singleRun: true,
-    coverageReporter: {
+    coverageIstanbulReporter: {
       dir: 'coverage',
       subdir: '.',
-      reporters: [
-        { type: 'lcov' },
-        { type: 'text-summary' }
-      ],
-      check: {
+      reports: ['html', 'text-summary', 'lcov'],
+      thresholds: {
         each: {
-          statements: 97,
-          branches: 80,
+          statements: 98,
+          branches: 83,
           functions: 100,
-          lines: 97
+          lines: 98
         }
       }
     }

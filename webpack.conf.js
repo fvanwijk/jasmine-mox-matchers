@@ -1,18 +1,20 @@
 const path = require('path');
-const webpack = require('webpack');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const params = {
   production: {
+    mode: 'production',
     output: 'jasmine-mox-matchers.min',
-    plugins: [
-      new webpack.optimize.UglifyJsPlugin({
-        minimize: true,
-        include: /\.min\.js$/,
-        compress: { warnings: false }
-      })
-    ]
+    optimization: {
+      minimizer: [
+        new UglifyJsPlugin({
+          include: /\.min\.js$/
+        })
+      ]
+    }
   },
   development: {
+    mode: 'development',
     output: 'jasmine-mox-matchers',
     devtool: 'inline-source-map'
   }
@@ -20,6 +22,7 @@ const params = {
 
 function getConfig(env) {
   return {
+    mode: params[env].mode,
     entry: {
       [params[env].output]: path.join(__dirname, '/src/jasmine-mox-matchers.js')
     },
@@ -32,7 +35,7 @@ function getConfig(env) {
       umdNamedDefine: true
     },
     module: {
-      loaders: [
+      rules: [
         {
           test: /\.js$/,
           loader: 'babel-loader',
@@ -44,7 +47,4 @@ function getConfig(env) {
   };
 }
 
-module.exports = [
-  getConfig('development'),
-  getConfig('production')
-];
+module.exports = [getConfig('development'), getConfig('production')];
