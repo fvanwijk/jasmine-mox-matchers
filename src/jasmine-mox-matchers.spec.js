@@ -1,5 +1,5 @@
 /**
- * This spec tests both jasmine 1 and 2 matchers, but is using Jasmine 2, so the lines where
+ * This spec tests both jasmine 1 and 2+ matchers, but is using Jasmine 4, so the lines where
  * there is a slight difference between Jasmine 1 and 2 in the matchers, are not tested for Jasmine 1.
  */
 import expectMatcher from 'testception';
@@ -17,12 +17,12 @@ describe('the promise matchers', () => {
   }
 
   beforeEach(() => {
-    inject((_$q_) => {
+    inject(_$q_ => {
       $q = _$q_;
     });
   });
 
-  angular.forEach([1, 2], (version) => {
+  angular.forEach([1, 2], version => {
     describe(`when using the Jasmine ${version} matcher`, () => {
       beforeAll(() => {
         expectMatcher.jasmineVersion = version;
@@ -56,6 +56,10 @@ describe('the promise matchers', () => {
       describe('toResolve', () => {
         useMatcher('toResolve', version);
 
+        it('should throw error when the actual is not a promise', () => {
+          expect(test.withMessage).toThrow(new Error('undefined is not a promise'));
+        });
+
         it('should assert promises that are resolved as resolved', () => {
           test
             .withActual($q.resolve())
@@ -82,6 +86,10 @@ describe('the promise matchers', () => {
       describe('toResolveWith', () => {
         useMatcher('toResolveWith', version);
 
+        it('should throw error when the actual is not a promise', () => {
+          expect(test.withMessage).toThrow(new Error('undefined is not a promise'));
+        });
+
         it('should assert promises that are resolved with some value as resolved with that value', () => {
           const def = $q.defer();
           def.resolve('value');
@@ -90,7 +98,7 @@ describe('the promise matchers', () => {
             .withActual(def.promise)
             .andExpected('value')
             .toPass()
-            .withMessage('Expected promise not to have been resolved with \'value\' but was resolved with \'value\'');
+            .withMessage("Expected promise not to have been resolved with 'value' but was resolved with 'value'");
         });
 
         it('should fail when the promise does not resolve', () => {
@@ -98,17 +106,17 @@ describe('the promise matchers', () => {
             .withActual($q.defer().promise)
             .andExpected('value')
             .toFail()
-            .withMessage('Expected promise to have been resolved with \'value\' but it was not resolved at all');
+            .withMessage("Expected promise to have been resolved with 'value' but it was not resolved at all");
         });
 
         it('should pass when the expected value is a callback function and the promise resolves', () => {
           test
             .withActual($q.resolve('value'))
-            .andExpected((res) => {
+            .andExpected(res => {
               expect(res).toEqual('value');
             })
             .toPass()
-            .withMessage('Expected promise not to have been resolved with Function but was resolved with \'value\'');
+            .withMessage("Expected promise not to have been resolved with Function but was resolved with 'value'");
         });
 
         it('should fail when the promise resolves to another value than the expected value', () => {
@@ -116,13 +124,18 @@ describe('the promise matchers', () => {
             .withActual($q.resolve('value'))
             .andExpected('another value')
             .toFail()
-            .withMessage('Expected promise to have been resolved with \'another value\' but was resolved with ' +
-              '\'value\'');
+            .withMessage(
+              "Expected promise to have been resolved with 'another value' but was resolved with " + "'value'"
+            );
         });
       });
 
       describe('toReject', () => {
         useMatcher('toReject', version);
+
+        it('should throw error when the actual is not a promise', () => {
+          expect(test.withMessage).toThrow(new Error('undefined is not a promise'));
+        });
 
         it('should assert promises that are rejected as rejected', () => {
           const def = $q.defer();
@@ -156,6 +169,10 @@ describe('the promise matchers', () => {
       describe('toRejectWith', () => {
         useMatcher('toRejectWith', version);
 
+        it('should throw error when the actual is not a promise', () => {
+          expect(test.withMessage).toThrow(new Error('undefined is not a promise'));
+        });
+
         it('should assert promises that are rejected with some message as rejected with that message', () => {
           const def = $q.defer();
           def.reject('message');
@@ -164,8 +181,9 @@ describe('the promise matchers', () => {
             .withActual(def.promise)
             .andExpected('message')
             .toPass()
-            .withMessage('Expected promise not to have been rejected with \'message\' but was rejected with ' +
-              '\'message\'');
+            .withMessage(
+              "Expected promise not to have been rejected with 'message' but was rejected with " + "'message'"
+            );
         });
 
         it('should fail when the promise does not resolve', () => {
@@ -173,7 +191,7 @@ describe('the promise matchers', () => {
             .withActual($q.defer().promise)
             .andExpected('message')
             .toFail()
-            .withMessage('Expected promise to have been rejected with \'message\' but it was not rejected at all');
+            .withMessage("Expected promise to have been rejected with 'message' but it was not rejected at all");
         });
 
         it('should pass when the expected value is a callback function and the promise rejects', () => {
@@ -182,11 +200,11 @@ describe('the promise matchers', () => {
 
           test
             .withActual(def.promise)
-            .andExpected((res) => {
+            .andExpected(res => {
               expect(res).toEqual('value');
             })
             .toPass()
-            .withMessage('Expected promise not to have been rejected with Function but was rejected with \'value\'');
+            .withMessage("Expected promise not to have been rejected with Function but was rejected with 'value'");
         });
 
         it('should fail when the promise rejects to another value than the expected value', () => {
@@ -197,8 +215,9 @@ describe('the promise matchers', () => {
             .withActual(def.promise)
             .andExpected('another message')
             .toFail()
-            .withMessage('Expected promise to have been rejected with \'another message\' but was rejected with ' +
-              '\'message\'');
+            .withMessage(
+              "Expected promise to have been rejected with 'another message' but was rejected with " + "'message'"
+            );
         });
       });
 
@@ -210,8 +229,10 @@ describe('the promise matchers', () => {
             .withActual('path?key1=value1')
             .andExpected({ key1: 'value1' })
             .toPass()
-            .withMessage('Expected URI not to have params Object({ key1: \'value1\' }), actual params were Object({' +
-              ' key1: \'value1\' }) in \'path?key1=value1\'');
+            .withMessage(
+              "Expected URI not to have params Object({ key1: 'value1' }), actual params were Object({" +
+                " key1: 'value1' }) in 'path?key1=value1'"
+            );
         });
 
         it('should fail when the actual string does not have the expected query params', () => {
@@ -219,8 +240,10 @@ describe('the promise matchers', () => {
             .withActual('path?key1=value1')
             .andExpected({ key2: 'value2' })
             .toFail()
-            .withMessage('Expected URI to have params Object({ key2: \'value2\' }), actual params were Object({ ' +
-              'key1: \'value1\' }) in \'path?key1=value1\'');
+            .withMessage(
+              "Expected URI to have params Object({ key2: 'value2' }), actual params were Object({ " +
+                "key1: 'value1' }) in 'path?key1=value1'"
+            );
         });
 
         it('should pass when the actual string does strictly have the expected query params', () => {
@@ -228,8 +251,10 @@ describe('the promise matchers', () => {
             .withActual('path?key1=value1&key2=value2')
             .andExpected({ key1: 'value1', key2: 'value2' }, true)
             .toPass()
-            .withMessage('Expected URI not to have params Object({ key1: \'value1\', key2: \'value2\' }), actual ' +
-              'params were Object({ key1: \'value1\', key2: \'value2\' }) in \'path?key1=value1&key2=value2\'');
+            .withMessage(
+              "Expected URI not to have params Object({ key1: 'value1', key2: 'value2' }), actual " +
+                "params were Object({ key1: 'value1', key2: 'value2' }) in 'path?key1=value1&key2=value2'"
+            );
         });
 
         it('should fail when the actual string does strictly not have the expected query params', () => {
@@ -237,8 +262,10 @@ describe('the promise matchers', () => {
             .withActual('path?key1=value1&key2=value2')
             .andExpected({ key1: 'value1' }, true)
             .toFail()
-            .withMessage('Expected URI to have params Object({ key1: \'value1\' }), actual params were Object({ ' +
-              'key1: \'value1\', key2: \'value2\' }) in \'path?key1=value1&key2=value2\'');
+            .withMessage(
+              "Expected URI to have params Object({ key1: 'value1' }), actual params were Object({ " +
+                "key1: 'value1', key2: 'value2' }) in 'path?key1=value1&key2=value2'"
+            );
         });
       });
 
@@ -258,8 +285,10 @@ describe('the promise matchers', () => {
             .withActual(element)
             .andExpected({ key1: 'value1' })
             .toPass()
-            .withMessage('Expected element isolate scope not to contain Object({ key1: \'value1\' }) but got Object({' +
-              ' key1: \'value1\', key2: \'value2\' })');
+            .withMessage(
+              "Expected element isolate scope not to contain Object({ key1: 'value1' }) but got Object({" +
+                " key1: 'value1', key2: 'value2' })"
+            );
         });
 
         it('should fail when actual element has the expected values not on the isolate scope', () => {
@@ -267,8 +296,10 @@ describe('the promise matchers', () => {
             .withActual(element)
             .andExpected({ key3: 'value3' })
             .toFail()
-            .withMessage('Expected element isolate scope to contain Object({ key3: \'value3\' }) but got Object({ ' +
-              'key1: \'value1\', key2: \'value2\' })');
+            .withMessage(
+              "Expected element isolate scope to contain Object({ key3: 'value3' }) but got Object({ " +
+                "key1: 'value1', key2: 'value2' })"
+            );
         });
 
         it('should fail when actual element has no isolate scope', () => {
@@ -277,8 +308,10 @@ describe('the promise matchers', () => {
             .withActual(element)
             .andExpected({ key1: 'value1' })
             .toFail()
-            .withMessage('Expected element isolate scope to contain Object({ key1: \'value1\' }) but the expected ' +
-              'element has no isolate scope');
+            .withMessage(
+              "Expected element isolate scope to contain Object({ key1: 'value1' }) but the expected " +
+                'element has no isolate scope'
+            );
         });
 
         it('should not test for private angular properties and "this"', () => {
@@ -291,8 +324,9 @@ describe('the promise matchers', () => {
             .withActual(element)
             .andExpected({ $key1: 'value1' })
             .toFail()
-            .withMessage('Expected element isolate scope to contain Object({ $key1: \'value1\' }) but got ' +
-              'Object({  })');
+            .withMessage(
+              "Expected element isolate scope to contain Object({ $key1: 'value1' }) but got " + 'Object({  })'
+            );
         });
       });
 

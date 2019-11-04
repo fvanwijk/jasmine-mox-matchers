@@ -1,9 +1,9 @@
 import _ from 'lodash';
 
 let currentSpec;
-const isJasmine2 = /^2/.test(jasmine.version);
+const isJasmine2 = !/^1/.test(jasmine.version);
 
-beforeEach(function () {
+beforeEach(function() {
   currentSpec = this;
 });
 
@@ -49,11 +49,8 @@ function getResult(matcherName, pass, ...messageWithPlaceholderValues) {
  * @returns {Function}
  */
 function convertMessage(message) {
-  return function () {
-    return [
-      message.replace(' {not}', ''),
-      message.replace('{not}', 'not')
-    ];
+  return function() {
+    return [message.replace(' {not}', ''), message.replace('{not}', 'not')];
   };
 }
 
@@ -99,8 +96,8 @@ function createPromiseWith(actual, expected, verb) {
     message = `Expected promise {not} to have been ${verb} with ${jasmine.pp(expected)} but was ${verb} with \
 ${jasmine.pp(actualResult)}`;
   }
-
-  return getResult(`to${verb === 'resolved' ? 'Resolve' : 'Reject'}With`, pass, message);
+  const matcherName = `to${verb === 'resolved' ? 'Resolve' : 'Reject'}With`;
+  return getResult(matcherName, pass, message);
 }
 
 /*
@@ -192,9 +189,14 @@ function toHaveQueryParams() {
   return {
     compare(actual, expected, strict) {
       const actualParams = queryStringFilter(actual.substring(actual.indexOf('?')));
-      const pass = _.matches(expected)(actualParams) && (!strict || _.matches(actualParams)(expected));
-      return getResult('toHaveQueryParams', pass, 'Expected URI {not} to have params {0}, actual params were {1} ' +
-        'in {2}', expected, actualParams, actual);
+      return getResult(
+        'toHaveQueryParams',
+        _.matches(expected)(actualParams) && (!strict || _.matches(actualParams)(expected)),
+        'Expected URI {not} to have params {0}, actual params were {1} ' + 'in {2}',
+        expected,
+        actualParams,
+        actual
+      );
     }
   };
 }
@@ -203,7 +205,7 @@ function toContainIsolateScope() {
   return {
     compare(actual, expected) {
       let cleanedScope;
-      let pass;
+      let pass = false;
       let messagePostfix;
       if (actual.isolateScope()) {
         cleanedScope = {};
@@ -216,12 +218,11 @@ function toContainIsolateScope() {
         pass = _.isEqual(_.pick(cleanedScope, _.keys(expected)), expected);
         messagePostfix = 'got {1}';
       } else {
-        pass = false;
         messagePostfix = 'the expected element has no isolate scope';
       }
+      const message = `Expected element isolate scope {not} to contain {0} but ${messagePostfix}`;
 
-      return getResult('toContainIsolateScope', pass, `Expected element isolate scope {not} to contain {0} but \
-${messagePostfix}`, expected, cleanedScope);
+      return getResult('toContainIsolateScope', pass, message, expected, cleanedScope);
     }
   };
 }
@@ -230,7 +231,7 @@ function convertMatchers(matchers) {
   const jasmine1Matchers = {};
   angular.forEach(matchers, (matcher, name) => {
     function matcherFactory(compareFn) {
-      return function (...args) {
+      return function(...args) {
         const result = compareFn.apply(this, [this.actual].concat(args));
         this.message = convertMessage(messages[name]);
         return result.pass;

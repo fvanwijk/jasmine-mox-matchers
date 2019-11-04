@@ -1,10 +1,5 @@
-engines:
+version: 2
+plugins:
   eslint:
     enabled: true
-    channel: "eslint-3"
-    checks:
-      import/no-unresolved:
-        enabled: false
-ratings:
-  paths:
-  - "src/**/*"
+    channel: 'eslint-5'
