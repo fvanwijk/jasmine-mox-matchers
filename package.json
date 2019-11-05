@@ -33,7 +33,7 @@
     "karma-jsdom-launcher": "8.0.0",
     "karma-webpack": "4.0.2",
     "prettier": "1.18.2",
-    "testception": "1.0.1",
+    "testception": "1.1.1",
     "uglifyjs-webpack-plugin": "2.2.0",
     "wallaby-webpack": "3.9.15",
     "webpack": "4.41.2",
